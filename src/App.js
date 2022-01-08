@@ -3,6 +3,12 @@
 import logo from "./logo.svg";
 import "./App.css";
 import { useState } from "react";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
+import FormGroup from "@mui/material/FormGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Switch from "@mui/material/Switch";
+import { styled } from "@mui/material/styles";
 
 export default function App() {
   let movies = [
@@ -79,46 +85,53 @@ export default function App() {
     <div className="App">
       <form action="" className="form">
         <div className="form-group">
-          <label htmlFor="">Movie : </label>
-          <input
-            type="text"
-            placeholder="movie name"
+          <TextField
             onChange={(event) => {
               setName(event.target.value);
             }}
+            id="outlined-basic"
+            label="Title"
+            variant="outlined"
+            required
+            color="secondary"
           />
+          {/* <input type="text" placeholder="" /> */}
         </div>
         <div className="form-group">
-          <label htmlFor="">Poster URL :</label>
-          <input
-            type="text"
-            placeholder="poster url"
+          <TextField
             onChange={(event) => {
               setPoster(event.target.value);
             }}
+            id="outlined-basic"
+            label="Poster"
+            variant="outlined"
           />
+          {/* <input type="text" placeholder="poster url" /> */}
         </div>
         <div className="form-group">
-          <label htmlFor="">Rating :</label>
-          <input
-            type="text"
-            placeholder="movie rating"
+          <TextField
             onChange={(event) => {
               setRating(event.target.value);
             }}
+            id="outlined-basic"
+            label="Rating"
+            variant="outlined"
           />
+          {/* <input type="text" placeholder="movie rating" /> */}
         </div>
         <div className="form-group">
-          <label htmlFor="">Summary :</label>
-          <input
-            type="text"
-            placeholder="movie  summary"
+          <TextField
             onChange={(event) => {
               setSummary(event.target.value);
             }}
+            id="outlined-basic"
+            label="Summary"
+            variant="outlined"
           />
+          {/* <input type="text" placeholder="movie  summary" /> */}
         </div>
-        <button
+        {/* <button></button> */}
+        <Button
           onClick={(event) => {
             event.preventDefault();
             console.log(event);
@@ -133,9 +146,10 @@ export default function App() {
               },
             ]);
           }}
+          variant="outlined"
         >
-          Submit
-        </button>
+          Add Movie
+        </Button>
       </form>
 
       <section className="gallery">
@@ -156,14 +170,89 @@ export default function App() {
 }
 
 function Movie({ poster, name, rating, summary }) {
+  const styles = { color: rating >= 8.5 ? "green" : "red" };
+  const [summaryDisplay, setsummaryDisplay] = useState(true);
+  const [summarystyles, setsummarystyles] = useState({
+    display: "none",
+  });
+  const Android12Switch = styled(Switch)(({ theme }) => ({
+    padding: 8,
+    "& .MuiSwitch-track": {
+      borderRadius: 22 / 2,
+      "&:before, &:after": {
+        content: '""',
+        position: "absolute",
+        top: "50%",
+        transform: "translateY(-50%)",
+        width: 16,
+        height: 16,
+      },
+      "&:before": {
+        backgroundImage: `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="16" width="16" viewBox="0 0 24 24"><path fill="${encodeURIComponent(
+          theme.palette.getContrastText(theme.palette.primary.main)
+        )}" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"/></svg>')`,
+        left: 12,
+      },
+      "&:after": {
+        backgroundImage: `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="16" width="16" viewBox="0 0 24 24"><path fill="${encodeURIComponent(
+          theme.palette.getContrastText(theme.palette.primary.main)
+        )}" d="M19,13H5V11H19V13Z" /></svg>')`,
+        right: 12,
+      },
+    },
+    "& .MuiSwitch-thumb": {
+      boxShadow: "none",
+      width: 16,
+      height: 16,
+      margin: 2,
+    },
+  }));
   return (
     <div className="movie-container">
       <img src={poster} alt={name} className="movie-poster" />
       <div className="movie-specs">
         <h3 className="movie-title">{name}</h3>
-        <p className="movie-rating">⭐ {rating}</p>
+        <p style={styles} className="movie-rating">
+          ⭐ {rating}
+        </p>
       </div>
-      <div className="movie-summary">{summary}</div>
+      {/* <details>
+        <summary>Summary of {name}</summary>
+        <p>{summary}</p>
+      </details> */}
+      {/* <button
+        onClick={() => {
+          setsummarystyles({ display: summaryDisplay ? "block" : "none" });
+          setsummaryDisplay(summaryDisplay ? false : true);
+        }}
+      >
+        Toggle Summary
+      </button> */}
+
+      {/* <FormControlLabel
+        control={<Android12Switch />}
+        label="Android 12"
+        onChange={() => {
+          setsummarystyles({ display: summaryDisplay ? "block" : "none" });
+          setsummaryDisplay(summaryDisplay ? false : true);
+        }}
+      /> */}
+      <FormGroup
+        onChange={() => {
+          setsummarystyles({ display: summaryDisplay ? "block" : "none" });
+          setsummaryDisplay(summaryDisplay ? false : true);
+        }}
+        class="toggle-align"
+      >
+        <FormControlLabel
+          labelPlacement="start"
+          control={<Switch />}
+          label="Show Summary"
+        />
+      </FormGroup>
+      <div className="movie-summary" style={summarystyles}>
+        {summary}
+      </div>
       <Counter />
     </div>
   );

@@ -20,6 +20,7 @@
   height: 500px;
   width: 280px;
   object-fit: cover;
+  margin: 0.25rem 0;
 }
 
 .movie-specs {
@@ -34,12 +35,19 @@
   margin-bottom: 5px;
 }
 
-/* .form{
-  
-} */
-
-.form-group {
+.form > * {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 0.8rem;
+}
+
+.form button {
+  display: inline-block;
+  margin: 0.8rem 0;
+}
+
+.toggle-align {
+  display: flex;
+  justify-content: center;
 }
