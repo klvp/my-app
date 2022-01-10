@@ -1,5 +1,10 @@
 /** @format */
 
+h3,
+p {
+  margin: 0;
+}
+
 .App {
   text-align: center;
 }
@@ -13,41 +18,61 @@
 }
 
 .movie-container {
-  width: 280px;
+  width: 320px;
+  margin: 0 0.5rem;
+  height: min-content;
 }
 
 .movie-poster {
-  height: 500px;
-  width: 280px;
+  height: 540px;
+  width: 320px;
   object-fit: cover;
-  margin: 0.25rem 0;
+  padding: 0.25rem 0 0 0;
 }
 
 .movie-specs {
   display: flex;
   justify-content: space-between;
+  padding: 0px 0.25rem;
 }
 
-.movie-title,
-.movie-rating,
-.movie-summary {
-  margin-top: 0px;
-  margin-bottom: 5px;
+.movie-rating {
+  font-size: 1.2rem;
+  padding-top: 0.25rem;
 }
 
-.form > * {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 0.8rem;
+.movie-content {
+  /* background: linear-gradient(to bottom, white #999999); */
+  position: relative;
+  top: -0.25rem;
 }
 
-.form button {
-  display: inline-block;
-  margin: 0.8rem 0;
+.form {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  /* place-items: center; */
+  gap: 1rem;
+  padding: 3rem 5rem 1rem;
+  max-width: 50%;
+  margin: 0 auto;
 }
 
-.toggle-align {
-  display: flex;
-  justify-content: center;
+.align-button {
+  display: grid;
+  grid-template-columns: 1fr;
+  place-items: center;
+  padding-bottom: 0.5rem;
+}
+
+.like-dislike-container {
+  display: grid;
+  place-items: center;
+}
+
+.like-dislike > button {
+  font-size: 1.25rem;
+}
+
+.css-46bh2p-MuiCardContent-root {
+  padding: 0px 0.5rem !important;
 }

@@ -1,17 +1,38 @@
 /** @format */
 
-import logo from "./logo.svg";
 import "./App.css";
 import { useState } from "react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
-import FormGroup from "@mui/material/FormGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Switch from "@mui/material/Switch";
-import { styled } from "@mui/material/styles";
+import { Movie } from "./Movie";
 
 export default function App() {
   let movies = [
+    {
+      name: "Money Heist",
+      poster:
+        "https://m.media-amazon.com/images/M/MV5BNDJkYzY3MzMtMGFhYi00MmQ4LWJkNTgtZGNiZWZmMTMxNzdlXkEyXkFqcGdeQXVyMTEyMjM2NDc2._V1_FMjpg_UX1000_.jpg",
+      rating: 7.8,
+      summary:
+        "A criminal mastermind who goes by 'The Professor' has a plan to pull off the biggest heist in recorded history -- to print billions of euros in the Royal Mint of Spain. To help him carry out the ambitious plan, he recruits eight people with certain abilities and who have nothing to lose. The group of thieves take hostages to aid in their negotiations with the authorities, who strategize to come up with a way to capture The Professor. As more time elapses, the robbers prepare for a showdown with the police",
+    },
+
+    {
+      name: "The 100",
+      poster:
+        "https://m.media-amazon.com/images/M/MV5BNjRiYTIzZmUtMTFkNS00ZTM0LWE4ODAtMDliMGE4NzM5ZjVlXkEyXkFqcGdeQXVyNDQ0MTYzMDA@._V1_.jpg",
+      rating: 7.6,
+      summary:
+        "A nuclear conflict has decimated civilisation. A century later, a spaceship accommodating humanity's lone survivors dispatch 100 juvenile delinquents back to the Earth to determine its habitability.",
+    },
+    {
+      name: "Stranger Things",
+      poster:
+        "https://images-na.ssl-images-amazon.com/images/M/MV5BMjEzMDAxOTUyMV5BMl5BanBnXkFtZTgwNzAxMzYzOTE@._V1_.jpg",
+      rating: 8.7,
+      summary:
+        "In 1980s Indiana, a group of young friends witness supernatural forces and secret government exploits. As they search for answers, the children unravel a series of extraordinary mysteries.",
+    },
     {
       name: "RRR",
       poster:
@@ -29,7 +50,7 @@ export default function App() {
         "With the world now aware that he is Iron Man, billionaire inventor Tony Stark (Robert Downey Jr.) faces pressure from all sides to share his technology with the military. He is reluctant to divulge the secrets of his armored suit, fearing the information will fall into the wrong hands. With Pepper Potts (Gwyneth Paltrow) and Rhodes (Don Cheadle) by his side, Tony must forge new alliances and confront a powerful new enemy.",
     },
     {
-      name: "No Country for Old Men",
+      name: "NoCountry for OldMen",
       poster:
         "https://upload.wikimedia.org/wikipedia/en/8/8b/No_Country_for_Old_Men_poster.jpg",
       rating: 8.1,
@@ -59,13 +80,7 @@ export default function App() {
       summary:
         "When Earth becomes uninhabitable in the future, a farmer and ex-NASA\n pilot, Joseph Cooper, is tasked to pilot a spacecraft, along with a team\n of researchers, to find a new planet for humans.",
     },
-    {
-      name: "Baahubali",
-      poster: "https://flxt.tmsimg.com/assets/p11546593_p_v10_af.jpg",
-      rating: 8,
-      summary:
-        "In the kingdom of Mahishmati, Shivudu falls in love with a young warrior woman. While trying to woo her, he learns about the conflict-ridden past of his family and his true legacy.",
-    },
+
     {
       name: "Ratatouille",
       poster:
@@ -84,58 +99,47 @@ export default function App() {
   return (
     <div className="App">
       <form action="" className="form">
-        <div className="form-group">
-          <TextField
-            onChange={(event) => {
-              setName(event.target.value);
-            }}
-            id="outlined-basic"
-            label="Title"
-            variant="outlined"
-            required
-            color="secondary"
-          />
-          {/* <input type="text" placeholder="" /> */}
-        </div>
-        <div className="form-group">
-          <TextField
-            onChange={(event) => {
-              setPoster(event.target.value);
-            }}
-            id="outlined-basic"
-            label="Poster"
-            variant="outlined"
-          />
-          {/* <input type="text" placeholder="poster url" /> */}
-        </div>
-        <div className="form-group">
-          <TextField
-            onChange={(event) => {
-              setRating(event.target.value);
-            }}
-            id="outlined-basic"
-            label="Rating"
-            variant="outlined"
-          />
-          {/* <input type="text" placeholder="movie rating" /> */}
-        </div>
-        <div className="form-group">
-          <TextField
-            onChange={(event) => {
-              setSummary(event.target.value);
-            }}
-            id="outlined-basic"
-            label="Summary"
-            variant="outlined"
-          />
-          {/* <input type="text" placeholder="movie  summary" /> */}
-        </div>
-        {/* <button></button> */}
+        <TextField
+          onChange={(event) => {
+            setName(event.target.value);
+          }}
+          id="outlined-basic"
+          label="Title"
+          variant="outlined"
+        />
+
+        <TextField
+          onChange={(event) => {
+            setPoster(event.target.value);
+          }}
+          id="outlined-basic"
+          label="Poster"
+          variant="outlined"
+        />
+
+        <TextField
+          onChange={(event) => {
+            setRating(event.target.value);
+          }}
+          id="outlined-basic"
+          label="Rating"
+          variant="outlined"
+        />
+
+        <TextField
+          onChange={(event) => {
+            setSummary(event.target.value);
+          }}
+          id="outlined-basic"
+          label="Summary"
+          variant="outlined"
+        />
+      </form>
+      <div className="align-button">
         <Button
           onClick={(event) => {
             event.preventDefault();
             console.log(event);
-
             setMovieList([
               ...MovieList,
               {
@@ -150,7 +154,7 @@ export default function App() {
         >
           Add Movie
         </Button>
-      </form>
+      </div>
 
       <section className="gallery">
         {MovieList.map((movie) => {
@@ -165,132 +169,6 @@ export default function App() {
         })}
       </section>
       {/* <Movie /> */}
-    </div>
-  );
-}
-
-function Movie({ poster, name, rating, summary }) {
-  const styles = { color: rating >= 8.5 ? "green" : "red" };
-  const [summaryDisplay, setsummaryDisplay] = useState(true);
-  const [summarystyles, setsummarystyles] = useState({
-    display: "none",
-  });
-  const Android12Switch = styled(Switch)(({ theme }) => ({
-    padding: 8,
-    "& .MuiSwitch-track": {
-      borderRadius: 22 / 2,
-      "&:before, &:after": {
-        content: '""',
-        position: "absolute",
-        top: "50%",
-        transform: "translateY(-50%)",
-        width: 16,
-        height: 16,
-      },
-      "&:before": {
-        backgroundImage: `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="16" width="16" viewBox="0 0 24 24"><path fill="${encodeURIComponent(
-          theme.palette.getContrastText(theme.palette.primary.main)
-        )}" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"/></svg>')`,
-        left: 12,
-      },
-      "&:after": {
-        backgroundImage: `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="16" width="16" viewBox="0 0 24 24"><path fill="${encodeURIComponent(
-          theme.palette.getContrastText(theme.palette.primary.main)
-        )}" d="M19,13H5V11H19V13Z" /></svg>')`,
-        right: 12,
-      },
-    },
-    "& .MuiSwitch-thumb": {
-      boxShadow: "none",
-      width: 16,
-      height: 16,
-      margin: 2,
-    },
-  }));
-  return (
-    <div className="movie-container">
-      <img src={poster} alt={name} className="movie-poster" />
-      <div className="movie-specs">
-        <h3 className="movie-title">{name}</h3>
-        <p style={styles} className="movie-rating">
-          ⭐ {rating}
-        </p>
-      </div>
-      {/* <details>
-        <summary>Summary of {name}</summary>
-        <p>{summary}</p>
-      </details> */}
-      {/* <button
-        onClick={() => {
-          setsummarystyles({ display: summaryDisplay ? "block" : "none" });
-          setsummaryDisplay(summaryDisplay ? false : true);
-        }}
-      >
-        Toggle Summary
-      </button> */}
-
-      {/* <FormControlLabel
-        control={<Android12Switch />}
-        label="Android 12"
-        onChange={() => {
-          setsummarystyles({ display: summaryDisplay ? "block" : "none" });
-          setsummaryDisplay(summaryDisplay ? false : true);
-        }}
-      /> */}
-      <FormGroup
-        onChange={() => {
-          setsummarystyles({ display: summaryDisplay ? "block" : "none" });
-          setsummaryDisplay(summaryDisplay ? false : true);
-        }}
-        class="toggle-align"
-      >
-        <FormControlLabel
-          labelPlacement="start"
-          control={<Switch />}
-          label="Show Summary"
-        />
-      </FormGroup>
-      <div className="movie-summary" style={summarystyles}>
-        {summary}
-      </div>
-      <Counter />
-    </div>
-  );
-}
-
-function Counter() {
-  const [like, setLike] = useState(0);
-  const [dislike, setDislike] = useState(0);
-  return (
-    <div>
-      <button onClick={() => setLike(like + 1)}>👍 {like}</button>
-      <button onClick={() => setDislike(dislike + 1)}>👎 {dislike}</button>
-    </div>
-  );
-}
-
-function AddMovie() {
-  return (
-    <div>
-      {/* <form action="" className="form">
-        <div className="form-group">
-          <label htmlFor="">Movie : </label>
-          <input type="text" placeholder="movie name" />
-        </div>
-        <div className="form-group">
-          <label htmlFor="">Poster URL :</label>
-          <input type="text" placeholder="poster url" />
-        </div>
-        <div className="form-group">
-          <label htmlFor="">Rating :</label>
-          <input type="text" placeholder="movie rating" />
-        </div>
-        <div className="form-group">
-          <label htmlFor="">Summary :</label>
-          <input type="text" placeholder="movie  summary" />
-        </div>
-        <button>Submit</button>
-      </form> */}
     </div>
   );
 }
