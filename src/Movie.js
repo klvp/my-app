@@ -11,7 +11,7 @@ import CardContent from "@mui/material/CardContent";
 export function Movie({ poster, name, rating, summary }) {
   const styles = { color: rating >= 7.5 ? "green" : "red" };
   const [show, setshow] = useState(false);
-  const summarystyles = { display: show ? "block" : "none" };
+  // const summarystyles = { display: show ? "block" : "none" };
 
   return (
     <Card className="movie-container">
@@ -35,9 +35,10 @@ export function Movie({ poster, name, rating, summary }) {
           </p>
         </div>
         <CardContent>
-          <div className="movie-summary" style={summarystyles}>
+          {/* <div className="movie-summary" style={summarystyles}>
             {summary}
-          </div>
+          </div> */}
+          {!show ? <div className="movie-summary">{summary}</div> : ""}
         </CardContent>
         <Counter />
       </div>
