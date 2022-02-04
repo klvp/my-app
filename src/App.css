@@ -73,6 +73,25 @@ p {
   font-size: 1.25rem;
 }
 
-.css-46bh2p-MuiCardContent-root {
-  padding: 0px 0.5rem !important;
+.movie-details-container {
+  margin: 0rem auto;
+  max-width: 50%;
+}
+
+.movie-specs {
+  display: flex;
+}
+
+.movie-specs h3 {
+  font-size: 24px;
+}
+
+.movie-specs p {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.movie-details-container section {
+  padding: 0.5rem 0;
+  text-align: justify;
 }

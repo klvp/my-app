@@ -1,16 +1,19 @@
 /** @format */
 
 import { useState } from "react";
+import { useHistory } from "react-router-dom";
 import IconButton from "@mui/material/IconButton";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
+import InfoIcon from "@mui/icons-material/Info";
 import { Counter } from "./Counter";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 
-export function Movie({ poster, name, rating, summary }) {
+export function Movie({ poster, name, rating, summary, trailer, id }) {
   const styles = { color: rating >= 7.5 ? "green" : "red" };
   const [show, setshow] = useState(false);
+  const history = useHistory();
   // const summarystyles = { display: show ? "block" : "none" };
 
   return (
@@ -28,6 +31,14 @@ export function Movie({ poster, name, rating, summary }) {
               color="primary"
             >
               {show ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+            </IconButton>
+            <IconButton
+              onClick={() => {
+                history.push(`/movies/${id}`);
+              }}
+              color="primary"
+            >
+              <InfoIcon />
             </IconButton>
           </h3>
           <p style={styles} className="movie-rating">
