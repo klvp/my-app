@@ -10,7 +10,16 @@ import { Counter } from "./Counter";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 
-export function Movie({ poster, name, rating, summary, trailer, id }) {
+export function Movie({
+  poster,
+  name,
+  rating,
+  summary,
+  trailer,
+  id,
+  deleteMovie,
+  editMovie,
+}) {
   const styles = { color: rating >= 7.5 ? "green" : "red" };
   const [show, setshow] = useState(false);
   const history = useHistory();
@@ -51,7 +60,12 @@ export function Movie({ poster, name, rating, summary, trailer, id }) {
           </div> */}
           {!show ? <div className="movie-summary">{summary}</div> : ""}
         </CardContent>
-        <Counter />
+        <div className="options">
+          <Counter />{" "}
+          <div>
+            {editMovie} {deleteMovie}
+          </div>
+        </div>
       </div>
       {/* <details>
               <summary>Summary of {name}</summary>

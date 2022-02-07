@@ -2,12 +2,12 @@
 
 import "./App.css";
 import { useState } from "react";
-import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
-import { Link, Switch, Route, Redirect } from "react-router-dom";
+import { Link, Switch, Route, Redirect, useHistory } from "react-router-dom";
 import { MovieDetails } from "./MovieDetails";
 import { NotFound } from "./NotFound";
 import { MovieCollection } from "./MovieCollection";
+import { AddMovie } from "./AddMovie";
+import { EditMovie } from "./EditMovie";
 
 export default function App() {
   let movies = [
@@ -20,15 +20,7 @@ export default function App() {
         "RRR is an upcoming Indian Telugu-language period action drama film directed by S. S. Rajamouli, and produced by D. V. V. Danayya of DVV Entertainments.",
       trailer: "https://www.youtube.com/embed/NgBoMJy386M",
     },
-    {
-      name: "Iron man 2",
-      poster:
-        "https://m.media-amazon.com/images/M/MV5BMTM0MDgwNjMyMl5BMl5BanBnXkFtZTcwNTg3NzAzMw@@._V1_FMjpg_UX1000_.jpg",
-      rating: 7,
-      summary:
-        "With the world now aware that he is Iron Man, billionaire inventor Tony Stark (Robert Downey Jr.) faces pressure from all sides to share his technology with the military. He is reluctant to divulge the secrets of his armored suit, fearing the information will fall into the wrong hands. With Pepper Potts (Gwyneth Paltrow) and Rhodes (Don Cheadle) by his side, Tony must forge new alliances and confront a powerful new enemy.",
-      trailer: "https://www.youtube.com/embed/wKtcmiifycU",
-    },
+
     {
       name: "No Country for Old Men",
       poster:
@@ -81,8 +73,17 @@ export default function App() {
         "Remy, a rat, aspires to become a renowned French chef. However, he fails to realise that people despise rodents and will never enjoy a meal cooked by him.",
       trailer: "https://www.youtube.com/embed/NgsQ8mVkN8w",
     },
+    {
+      name: "Iron man 2",
+      poster:
+        "https://m.media-amazon.com/images/M/MV5BMTM0MDgwNjMyMl5BMl5BanBnXkFtZTcwNTg3NzAzMw@@._V1_FMjpg_UX1000_.jpg",
+      rating: 7,
+      summary:
+        "With the world now aware that he is Iron Man, billionaire inventor Tony Stark (Robert Downey Jr.) faces pressure from all sides to share his technology with the military. He is reluctant to divulge the secrets of his armored suit, fearing the information will fall into the wrong hands. With Pepper Potts (Gwyneth Paltrow) and Rhodes (Don Cheadle) by his side, Tony must forge new alliances and confront a powerful new enemy.",
+      trailer: "https://www.youtube.com/embed/wKtcmiifycU",
+    },
   ];
-
+  let history = useHistory();
   const [MovieList, setMovieList] = useState([...movies]);
 
   return (
@@ -97,19 +98,31 @@ export default function App() {
         <li>
           <Link to="/color">Color</Link>
         </li>
+        <li>
+          <Link to="/movies/add">Add Movie</Link>
+        </li>
       </ul>
 
       <Switch>
         <Route exact path="/">
           <h1>Welcome to Movies Home Page 🤷‍♂️✌✨</h1>
         </Route>
+        <Route path="/movies/add">
+          <AddMovie MovieList={MovieList} setMovieList={setMovieList} />
+        </Route>
+        <Route path="/movies/edit/:id">
+          <EditMovie MovieList={MovieList} setMovieList={setMovieList} />
+        </Route>
         <Route path="/movies/:movieId">
           <MovieDetails MovieList={MovieList} />
         </Route>
+
         <Route path="/movies">
           <div>
-            <AddMovie MovieList={MovieList} setMovieList={setMovieList} />
-            <MovieCollection MovieList={MovieList} />
+            <MovieCollection
+              MovieList={MovieList}
+              setMovieList={setMovieList}
+            />
           </div>
         </Route>
         <Route path="/films">
@@ -120,81 +133,6 @@ export default function App() {
           <NotFound />
         </Route>
       </Switch>
-    </div>
-  );
-}
-
-function AddMovie({ MovieList, setMovieList }) {
-  const [Name, setName] = useState();
-  const [Poster, setPoster] = useState();
-  const [Rating, setRating] = useState();
-  const [Summary, setSummary] = useState();
-  const [Trailer, setTrailer] = useState();
-
-  return (
-    <div>
-      <form action="" className="form">
-        <TextField
-          onChange={(event) => {
-            setName(event.target.value);
-          }}
-          id="outlined-basic"
-          label="Movie Title"
-          variant="outlined"
-        />
-        <TextField
-          onChange={(event) => {
-            setPoster(event.target.value);
-          }}
-          id="outlined-basic"
-          label="Movie Poster"
-          variant="outlined"
-        />
-        <TextField
-          onChange={(event) => {
-            setRating(event.target.value);
-          }}
-          id="outlined-basic"
-          label="IMDB Rating"
-          variant="outlined"
-        />
-        <TextField
-          onChange={(event) => {
-            setSummary(event.target.value);
-          }}
-          id="outlined-basic"
-          label="Movie Summary"
-          variant="outlined"
-        />
-        <TextField
-          onChange={(event) => {
-            setTrailer(event.target.value);
-          }}
-          id="outlined-basic"
-          label="Movie Trailer"
-          variant="outlined"
-        />
-      </form>
-      <div className="align-button">
-        <Button
-          onClick={(event) => {
-            event.preventDefault();
-            console.log(event);
-            setMovieList([
-              ...MovieList,
-              {
-                name: Name,
-                poster: Poster,
-                rating: Rating,
-                summary: Summary,
-              },
-            ]);
-          }}
-          variant="outlined"
-        >
-          Add Movie
-        </Button>
-      </div>
     </div>
   );
 }

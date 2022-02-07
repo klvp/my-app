@@ -64,11 +64,6 @@ p {
   padding-bottom: 0.5rem;
 }
 
-.like-dislike-container {
-  display: grid;
-  place-items: center;
-}
-
 .like-dislike > button {
   font-size: 1.25rem;
 }
@@ -76,6 +71,7 @@ p {
 .movie-details-container {
   margin: 0rem auto;
   max-width: 50%;
+  padding-bottom: 3rem;
 }
 
 .movie-specs {
@@ -91,7 +87,24 @@ p {
   font-weight: bold;
 }
 
+ul {
+  list-style: none;
+}
+
 .movie-details-container section {
   padding: 0.5rem 0;
   text-align: justify;
+}
+
+.options {
+  display: flex;
+  justify-content: space-between;
+}
+
+.go-back {
+  float: left;
+}
+
+.clear {
+  clear: both;
 }
