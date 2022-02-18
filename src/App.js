@@ -8,6 +8,10 @@ import { NotFound } from "./NotFound";
 import { MovieCollection } from "./MovieCollection";
 import { AddMovie } from "./AddMovie";
 import { EditMovie } from "./EditMovie";
+import * as React from "react";
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+import Button from "@mui/material/Button";
 
 export default function App() {
   let movies = [
@@ -88,20 +92,22 @@ export default function App() {
 
   return (
     <div className="App">
-      <ul>
-        <li>
-          <Link to="/">Home</Link>
-        </li>
-        <li>
-          <Link to="/movies">Movies</Link>
-        </li>
-        <li>
-          <Link to="/color">Color</Link>
-        </li>
-        <li>
-          <Link to="/movies/add">Add Movie</Link>
-        </li>
-      </ul>
+      <AppBar position="static">
+        <Toolbar>
+          <Button color="inherit" onClick={() => history.push("/")}>
+            Home
+          </Button>
+          <Button color="inherit" onClick={() => history.push("/movies")}>
+            Movies
+          </Button>
+          <Button color="inherit" onClick={() => history.push("/color")}>
+            Color
+          </Button>
+          <Button color="inherit" onClick={() => history.push("/movies/add")}>
+            Add Movie
+          </Button>
+        </Toolbar>
+      </AppBar>
 
       <Switch>
         <Route exact path="/">
