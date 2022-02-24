@@ -5,8 +5,25 @@ import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import { useHistory } from "react-router-dom";
+import { useState, useEffect } from "react";
 
-export function MovieCollection({ MovieList, setMovieList }) {
+export function MovieCollection() {
+  const [MovieList, setMovieList] = useState([]);
+  const getMovies = () => {
+    fetch("https://61eb17287ec58900177cdba8.mockapi.io/movies")
+      .then((data) => data.json())
+      .then((mvs) => setMovieList(mvs));
+  };
+  useEffect(() => {
+    getMovies();
+  }, []);
+
+  const deleteMovie = (id) => {
+    fetch(`https://61eb17287ec58900177cdba8.mockapi.io/movies/${id}`, {
+      method: "DELETE",
+    }).then(() => getMovies());
+  };
+
   const history = useHistory();
   return (
     <div>
@@ -21,15 +38,11 @@ export function MovieCollection({ MovieList, setMovieList }) {
                 rating={movie.rating}
                 summary={movie.summary}
                 trailer={movie.trailer}
-                id={index}
+                id={movie.id}
                 deleteMovie={
                   <IconButton
                     onClick={() => {
-                      const remainingMovies = MovieList.filter(
-                        (mv, idx) => idx !== index
-                      );
-
-                      setMovieList(remainingMovies);
+                      deleteMovie(movie.id);
                     }}
                     color="error"
                   >
@@ -39,7 +52,7 @@ export function MovieCollection({ MovieList, setMovieList }) {
                 editMovie={
                   <IconButton
                     onClick={() => {
-                      history.push(`/movies/edit/${index}`);
+                      history.push(`/movies/edit/${movie.id}`);
                     }}
                     color="secondary"
                   >

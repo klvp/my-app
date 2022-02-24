@@ -1,13 +1,22 @@
 /** @format */
-
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Button from "@mui/material/Button";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import { useHistory } from "react-router-dom";
 
-export function MovieDetails({ MovieList }) {
+export function MovieDetails() {
   const { movieId } = useParams();
-  const movie = MovieList[movieId];
+  const [movie, setMovie] = useState([]);
+  const getMovie = (id) => {
+    fetch("https://61eb17287ec58900177cdba8.mockapi.io/movies/" + id)
+      .then((data) => data.json())
+      .then((mv) => setMovie(mv));
+  };
+  useEffect(() => {
+    getMovie(movieId);
+  }, []);
+
   const history = useHistory();
   return (
     <div>

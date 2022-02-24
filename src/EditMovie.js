@@ -1,14 +1,27 @@
 /** @format */
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import { useHistory, useParams } from "react-router-dom";
 
-export function EditMovie({ MovieList, setMovieList }) {
+export function EditMovie() {
   const { id } = useParams();
-  const movie = MovieList[id];
-  console.log(movie.name);
+  const [movie, setMovie] = useState(null);
+  const getMovie = (id) => {
+    fetch("https://61eb17287ec58900177cdba8.mockapi.io/movies/" + id)
+      .then((data) => data.json())
+      .then((mv) => setMovie(mv));
+  };
+  useEffect(() => {
+    getMovie(id);
+  }, []);
+  console.log(movie);
+
+  return movie ? <EditMovieForm movie={movie} /> : "";
+}
+
+function EditMovieForm({ movie }) {
   let [Name, setName] = useState(movie.name);
   let [Poster, setPoster] = useState(movie.poster);
   let [Rating, setRating] = useState(movie.rating);
@@ -76,10 +89,21 @@ export function EditMovie({ MovieList, setMovieList }) {
               summary: Summary,
               trailer: Trailer,
             };
-            const copyMovieList = [...MovieList];
-            copyMovieList[id] = updatedMovie;
-            setMovieList(copyMovieList);
-            history.push("/movies");
+
+            fetch(
+              "https://61eb17287ec58900177cdba8.mockapi.io/movies/" + movie.id,
+              {
+                method: "PUT",
+                headers: {
+                  "content-type": "application/json",
+                },
+                body: JSON.stringify(updatedMovie),
+              }
+            ).then(() => history.push("/movies"));
+            // const copyMovieList = [...MovieList];
+            // copyMovieList[id] = updatedMovie;
+            // setMovieList(copyMovieList);
+            // history.push("/movies");
           }}
           variant="outlined"
           color="success"

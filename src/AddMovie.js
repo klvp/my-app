@@ -5,7 +5,7 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import { useHistory } from "react-router-dom";
 
-export function AddMovie({ MovieList, setMovieList }) {
+export function AddMovie() {
   const [Name, setName] = useState();
   const [Poster, setPoster] = useState();
   const [Rating, setRating] = useState();
@@ -59,18 +59,23 @@ export function AddMovie({ MovieList, setMovieList }) {
       </form>
       <div className="align-button">
         <Button
-          onClick={(event) => {
-            event.preventDefault();
-            setMovieList([
-              ...MovieList,
-              {
-                name: Name,
-                poster: Poster,
-                rating: Rating,
-                summary: Summary,
+          onClick={() => {
+            const newMovie = {
+              name: Name,
+              poster: Poster,
+              rating: Rating,
+              summary: Summary,
+              trailer: Trailer,
+            };
+
+            fetch("https://61eb17287ec58900177cdba8.mockapi.io/movies", {
+              method: "POST",
+              headers: {
+                "content-type": "application/json",
               },
-            ]);
-            history.push("/movies");
+              body: JSON.stringify(newMovie),
+            }).then(() => history.push("/movies"));
+            // setMovieList([...MovieList, newMovie]);
           }}
           variant="outlined"
         >
