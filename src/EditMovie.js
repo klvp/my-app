@@ -4,12 +4,12 @@ import { useState, useEffect } from "react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import { useHistory, useParams } from "react-router-dom";
-
+import { API } from "./global";
 export function EditMovie() {
   const { id } = useParams();
   const [movie, setMovie] = useState(null);
   const getMovie = (id) => {
-    fetch("https://61eb17287ec58900177cdba8.mockapi.io/movies/" + id)
+    fetch(`${API}/movies/` + id)
       .then((data) => data.json())
       .then((mv) => setMovie(mv));
   };
@@ -90,16 +90,13 @@ function EditMovieForm({ movie }) {
               trailer: Trailer,
             };
 
-            fetch(
-              "https://61eb17287ec58900177cdba8.mockapi.io/movies/" + movie.id,
-              {
-                method: "PUT",
-                headers: {
-                  "content-type": "application/json",
-                },
-                body: JSON.stringify(updatedMovie),
-              }
-            ).then(() => history.push("/movies"));
+            fetch(`${API}/movies/` + movie.id, {
+              method: "PUT",
+              headers: {
+                "content-type": "application/json",
+              },
+              body: JSON.stringify(updatedMovie),
+            }).then(() => history.push("/movies"));
             // const copyMovieList = [...MovieList];
             // copyMovieList[id] = updatedMovie;
             // setMovieList(copyMovieList);
