@@ -31,17 +31,17 @@ export function MovieCollection() {
           return (
             <div>
               <Movie
-                key={index}
+                key={movie._id}
                 poster={movie.poster}
                 name={movie.name}
                 rating={movie.rating}
                 summary={movie.summary}
                 trailer={movie.trailer}
-                id={movie.id}
+                id={movie._id}
                 deleteMovie={
                   <IconButton
                     onClick={() => {
-                      deleteMovie(movie.id);
+                      deleteMovie(movie._id);
                     }}
                     color="error"
                   >
@@ -51,7 +51,7 @@ export function MovieCollection() {
                 editMovie={
                   <IconButton
                     onClick={() => {
-                      history.push(`/movies/edit/${movie.id}`);
+                      history.push(`/movies/edit/${movie._id}`);
                     }}
                     color="secondary"
                   >
