@@ -16,7 +16,7 @@ export function EditMovie() {
   useEffect(() => {
     getMovie(id);
   }, []);
-  console.log(movie);
+  // console.log(movie);
 
   return movie ? <EditMovieForm movie={movie} /> : "";
 }
@@ -89,8 +89,9 @@ function EditMovieForm({ movie }) {
               summary: Summary,
               trailer: Trailer,
             };
-
-            fetch(`${API}/movies/` + movie.id, {
+            console.log(movie);
+            console.log(movie._id);
+            fetch(`${API}/movies/` + movie._id, {
               method: "PUT",
               headers: {
                 "content-type": "application/json",
